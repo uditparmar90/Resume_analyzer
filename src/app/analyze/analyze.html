@@ -1,1 +1,221 @@
-<p>analyze works!</p>
+<!-- HERO -->
+<div class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="badge rounded-pill" style="background:rgba(255,255,255,.15); color:#fff; font-weight:500; font-size:.78rem;">
+            <i class="bi bi-stars me-1"></i>AI-Powered
+          </span>
+        </div>
+        <h1>Analyze your resume<br>with AI</h1>
+        <p class="mt-2 mb-0">Upload your resume and get instant, detailed feedback on ATS compatibility, skill gaps, and role fit — powered by Claude AI.</p>
+      </div>
+      <div class="col-lg-5 offset-lg-1 d-none d-lg-flex justify-content-end">
+        <div class="d-flex gap-3">
+          <div class="text-center">
+            <div style="font-size:2rem; font-weight:700;">98%</div>
+            <div style="font-size:.78rem; opacity:.7;">ATS pass rate</div>
+          </div>
+          <div style="width:1px; background:rgba(255,255,255,.2)"></div>
+          <div class="text-center">
+            <div style="font-size:2rem; font-weight:700;">3x</div>
+            <div style="font-size:.78rem; opacity:.7;">More callbacks</div>
+          </div>
+          <div style="width:1px; background:rgba(255,255,255,.2)"></div>
+          <div class="text-center">
+            <div style="font-size:2rem; font-weight:700;">10s</div>
+            <div style="font-size:.78rem; opacity:.7;">Analysis time</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- MAIN CONTENT -->
+<div class="container pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+ 
+      <!-- STEPS -->
+      <div class="d-flex align-items-center gap-2 my-4 flex-wrap">
+        <span class="step-pill active" id="step1"><i class="bi bi-1-circle-fill"></i> Upload</span>
+        <i class="bi bi-chevron-right text-secondary" style="font-size:.7rem"></i>
+        <span class="step-pill" id="step2"><i class="bi bi-2-circle"></i> Configure</span>
+        <i class="bi bi-chevron-right text-secondary" style="font-size:.7rem"></i>
+        <span class="step-pill" id="step3"><i class="bi bi-3-circle"></i> Results</span>
+      </div>
+ 
+      <!-- ANALYZER CARD -->
+      <div class="analyzer-card">
+ 
+        <!-- UPLOAD SECTION -->
+        <div id="upload-section" class="p-4">
+          <h5 class="fw-semibold mb-1">Upload your resume</h5>
+          <p class="text-secondary small mb-3">Supports PDF, TXT, and DOC formats</p>
+ 
+          <!-- DROP ZONE -->
+          <div class="upload-zone mb-3" id="upload-zone"
+            ondragover="event.preventDefault(); this.classList.add('dragover')"
+            ondragleave="this.classList.remove('dragover')"
+            ondrop="handleDrop(event)"
+            onclick="document.getElementById('file-input').click()">
+            <i class="bi bi-cloud-arrow-up upload-icon d-block mb-2"></i>
+            <p class="fw-semibold mb-1" id="upload-label">Drop your resume here</p>
+            <p class="text-secondary small mb-3" id="upload-sub">or click to browse from your device</p>
+            <span class="badge rounded-pill text-bg-light border small">PDF · TXT · DOC</span>
+            <input type="file" id="file-input" accept=".pdf,.txt,.doc,.docx" class="d-none" (change)="handleFileSelect($event)"/>
+          </div>
+ 
+          <!-- ROLE INPUT -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold small">Target job role</label>
+            <div class="input-group">
+              <span class="input-group-text bg-white border-end-0">
+                <i class="bi bi-briefcase text-secondary"></i>
+              </span>
+              <input type="text" id="job-role" class="form-control border-start-0 ps-0"
+                placeholder="e.g. Full Stack .NET Developer, Backend Engineer..."/>
+            </div>
+            <div class="form-text">Leave blank for a general analysis</div>
+          </div>
+ 
+          <!-- EXPERIENCE LEVEL -->
+          <div class="mb-4">
+            <label class="form-label fw-semibold small">Experience level</label>
+            <div class="d-flex gap-2 flex-wrap">
+              <input type="radio" class="btn-check" name="exp" id="exp-fresher" value="fresher"/>
+              <label class="btn btn-sm btn-outline-secondary rounded-pill" for="exp-fresher">Fresher / Intern</label>
+              <input type="radio" class="btn-check" name="exp" id="exp-junior" value="junior" checked/>
+              <label class="btn btn-sm btn-outline-secondary rounded-pill" for="exp-junior">Junior (0–2 yrs)</label>
+              <input type="radio" class="btn-check" name="exp" id="exp-mid" value="mid"/>
+              <label class="btn btn-sm btn-outline-secondary rounded-pill" for="exp-mid">Mid (2–5 yrs)</label>
+              <input type="radio" class="btn-check" name="exp" id="exp-senior" value="senior"/>
+              <label class="btn btn-sm btn-outline-secondary rounded-pill" for="exp-senior">Senior (5+ yrs)</label>
+            </div>
+          </div>
+ 
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-analyze" id="analyze-btn" disabled>
+              <i class="bi bi-stars me-2"></i>Analyze resume
+            </button>
+          </div>
+        </div>
+ 
+        <!-- LOADING -->
+        <div id="loading-section" class="p-5 text-center">
+          <div class="spinner-ring mx-auto mb-3"></div>
+          <p class="fw-semibold mb-1">Analyzing your resume...</p>
+          <p class="text-secondary small">This usually takes under 10 seconds</p>
+          <div class="progress mt-3" style="height:4px; max-width:240px; margin:0 auto;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%; background:var(--brand)"></div>
+          </div>
+        </div>
+ 
+        <!-- RESULTS -->
+        <div id="result-section" class="p-4">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <div>
+              <h5 class="fw-semibold mb-0">Analysis complete</h5>
+              <p class="text-secondary small mb-0" id="result-subtitle"></p>
+            </div>
+            <!-- <button class="btn btn-sm btn-outline-secondary rounded-pill" (click)="resetTool()"> -->
+                <button class="btn btn-sm btn-outline-secondary rounded-pill">
+              <i class="bi bi-arrow-counterclockwise me-1"></i>Start over
+            </button>
+          </div>
+ 
+          <!-- METRIC CARDS -->
+          <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+              <div class="metric-card">
+                <div class="metric-label">Overall</div>
+                <div class="metric-value" id="score-overall">—</div>
+                <div class="mt-1" id="badge-overall"></div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="metric-card">
+                <div class="metric-label">ATS score</div>
+                <div class="metric-value" id="score-ats">—</div>
+                <div class="mt-1" id="badge-ats"></div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="metric-card">
+                <div class="metric-label">Role match</div>
+                <div class="metric-value" id="score-match">—</div>
+                <div class="mt-1" id="badge-match"></div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="metric-card">
+                <div class="metric-label">Completeness</div>
+                <div class="metric-value" id="score-complete">—</div>
+                <div class="mt-1" id="badge-complete"></div>
+              </div>
+            </div>
+          </div>
+ 
+          <!-- SECTION SCORES -->
+          <div class="result-block">
+            <h6><i class="bi bi-bar-chart-line me-1"></i>Section breakdown</h6>
+            <div id="section-scores"></div>
+          </div>
+ 
+          <!-- SKILLS -->
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <div class="result-block h-100 mb-0">
+                <h6><i class="bi bi-check2-circle me-1 text-success"></i>Detected skills</h6>
+                <div id="skills-found"></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="result-block h-100 mb-0">
+                <h6><i class="bi bi-exclamation-circle me-1 text-danger"></i>Missing / recommended</h6>
+                <div id="skills-missing"></div>
+              </div>
+            </div>
+          </div>
+ 
+          <!-- STRENGTHS & IMPROVEMENTS -->
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <div class="result-block h-100 mb-0">
+                <h6><i class="bi bi-trophy me-1 text-warning"></i>Strengths</h6>
+                <ul id="strengths-list" class="mb-0 ps-3 small text-secondary" style="line-height:1.9;"></ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="result-block h-100 mb-0">
+                <h6><i class="bi bi-tools me-1" style="color:var(--brand)"></i>Improvements needed</h6>
+                <ul id="improvements-list" class="mb-0 ps-3 small text-secondary" style="line-height:1.9;"></ul>
+              </div>
+            </div>
+          </div>
+ 
+          <!-- SUMMARY -->
+          <div class="result-block" style="border-left: 3px solid var(--brand);">
+            <h6><i class="bi bi-card-text me-1"></i>AI summary</h6>
+            <p id="summary-text" class="mb-0 small text-secondary" style="line-height:1.8;"></p>
+          </div>
+ 
+          <!-- ACTIONS -->
+          <div class="d-flex gap-2 flex-wrap">
+            <!-- <button class="btn btn-analyze flex-grow-1" (click)="sendPrompt('Give me a detailed improvement plan for my resume based on the analysis')"> -->
+            <button class="btn btn-analyze flex-grow-1">
+              <i class="bi bi-magic me-1"></i>Get improvement plan ↗
+            </button>
+            <!-- <button class="btn btn-outline-secondary flex-grow-1" (click)="window.print()">
+              <i class="bi bi-download me-1"></i>Save report
+            </button> -->
+          </div>
+        </div>
+ 
+      </div><!-- /analyzer-card -->
+ 
+    </div>
+  </div>
+</div>

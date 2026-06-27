@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-index',
@@ -6,4 +6,8 @@ import { Component } from '@angular/core';
   templateUrl: './index.html',
   styleUrl: './index.css',
 })
-export class Index {}
+export class Index {
+
+  protected readonly title = signal('Resume_analyzer');
+
+}

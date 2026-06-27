@@ -1,0 +1,259 @@
+:root {
+    --brand: #2563EB;
+    --brand-dark: #1D4ED8;
+    --success-bg: #ECFDF5;
+    --success-text: #065F46;
+    --warning-bg: #FFFBEB;
+    --warning-text: #92400E;
+    --danger-bg: #FEF2F2;
+    --danger-text: #991B1B;
+}
+
+body {
+    background: #F8FAFC;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #1E293B;
+    min-height: 100vh;
+}
+
+/* NAV */
+.navbar-brand span {
+    color: var(--brand);
+}
+
+/* HERO */
+.hero-section {
+    background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 50%, #7C3AED 100%);
+    padding: 3rem 0 5rem;
+    color: #fff;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.hero-section p {
+    opacity: .85;
+    font-size: 1.05rem;
+    max-width: 480px;
+}
+
+/* MAIN CARD */
+.analyzer-card {
+    background: #fff;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, .07);
+    margin-top: -3rem;
+    overflow: hidden;
+}
+
+/* UPLOAD ZONE */
+.upload-zone {
+    border: 2px dashed #CBD5E1;
+    border-radius: 12px;
+    padding: 2.5rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    background: #F8FAFC;
+    transition: border-color .2s, background .2s;
+}
+
+.upload-zone:hover,
+.upload-zone.dragover {
+    border-color: var(--brand);
+    background: #EFF6FF;
+}
+
+.upload-zone.has-file {
+    border-style: solid;
+    border-color: #10B981;
+    background: var(--success-bg);
+}
+
+.upload-zone .upload-icon {
+    font-size: 2.5rem;
+    color: #94A3B8;
+    transition: color .2s;
+}
+
+.upload-zone.has-file .upload-icon {
+    color: #10B981;
+}
+
+/* PROGRESS BARS */
+.section-progress .label-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: .8rem;
+    color: #64748B;
+    margin-bottom: 4px;
+}
+
+.progress {
+    height: 7px;
+    border-radius: 4px;
+    background: #E2E8F0;
+}
+
+/* SCORE BADGES */
+.score-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 600;
+}
+
+.score-high {
+    background: var(--success-bg);
+    color: var(--success-text);
+}
+
+.score-mid {
+    background: var(--warning-bg);
+    color: var(--warning-text);
+}
+
+.score-low {
+    background: var(--danger-bg);
+    color: var(--danger-text);
+}
+
+/* METRIC CARDS */
+.metric-card {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.metric-card .metric-label {
+    font-size: .72rem;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-bottom: 4px;
+}
+
+.metric-card .metric-value {
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* TAGS */
+.tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: .75rem;
+    margin: 3px;
+}
+
+.tag-skill {
+    background: #EFF6FF;
+    color: #1D4ED8;
+    border: 1px solid #BFDBFE;
+}
+
+.tag-missing {
+    background: var(--danger-bg);
+    color: var(--danger-text);
+    border: 1px solid #FECACA;
+}
+
+/* RESULT SECTION */
+.result-block {
+    background: #fff;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.result-block h6 {
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: #64748B;
+    margin-bottom: .75rem;
+}
+
+/* STEP TABS */
+.step-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #F1F5F9;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: .82rem;
+    font-weight: 500;
+    color: #64748B;
+}
+
+.step-pill.active {
+    background: var(--brand);
+    color: #fff;
+}
+
+.step-pill.done {
+    background: #ECFDF5;
+    color: var(--success-text);
+}
+
+/* BUTTONS */
+.btn-analyze {
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 28px;
+    font-weight: 600;
+    font-size: .95rem;
+    transition: background .15s;
+}
+
+.btn-analyze:hover {
+    background: var(--brand-dark);
+    color: #fff;
+}
+
+.btn-analyze:disabled {
+    opacity: .55;
+}
+
+/* SPINNER */
+.spinner-ring {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #E2E8F0;
+    border-top-color: var(--brand);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* FOOTER */
+footer {
+    font-size: .8rem;
+    color: #94A3B8;
+}
+
+#result-section {
+    display: none;
+}
+
+#loading-section {
+    display: none;
+}
